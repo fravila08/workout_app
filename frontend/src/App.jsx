@@ -34,7 +34,7 @@ function App() {
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <h1>Welcome{user ? ` ${user}` : null}!</h1>
       {user ? <Button onClick={logOut}>Log Out</Button> : null}
       <Outlet context={{ user, setUser }} />

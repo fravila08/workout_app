@@ -5,8 +5,8 @@ const HomePage = () => {
     <>
       <h1>HomePage</h1>
       <div>
-        <img src={logo} style={{float:"left"}}/>
-        <p >
+        <img src={logo} style={{ float: "left" }} />
+        <p>
           Are you tired of the same monotonous workouts and struggling to stay
           motivated on your fitness journey? Look no further! Introducing our
           revolutionary fitness app that goes beyond the ordinary, providing you
