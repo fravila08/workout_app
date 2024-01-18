@@ -1,35 +1,45 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Outlet } from "react-router-dom";
+import { api } from "./utilities";
+import "./App.css";
+import Button from "react-bootstrap/esm/Button";
+import NavBar from "./components/NavBar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState(null);
+
+  const getInfo = async () => {
+    let response = await api.get("users/info/");
+    if (response.status === 200) {
+      setUser(response.data.user.username);
+    }
+  };
+
+  const logOut = async () => {
+    let response = await api.post("users/logout/");
+    if (response.status === 200) {
+      delete api.defaults.headers.common["Authorization"];
+      localStorage.removeItem("token");
+      setUser(null);
+    }
+  };
+
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      api.defaults.headers.common["Authorization"] = token;
+      getInfo();
+    }
+  }, []);
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <NavBar/>
+      <h1>Welcome{user ? ` ${user}` : null}!</h1>
+      {user ? <Button onClick={logOut}>Log Out</Button> : null}
+      <Outlet context={{ user, setUser }} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

@@ -20,7 +20,7 @@ from .models import User
 def log_in_user(request, user):
     token = Token.objects.create(user=user)
     login(request, user)
-    return {"greeting": f"Welcome {user.username}!", "token": token.key}
+    return {"user": user.username, "token": token.key}
 
 
 # Create your views here.
