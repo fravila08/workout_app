@@ -18,7 +18,7 @@ from .models import User
 
 
 def log_in_user(request, user):
-    token = Token.objects.create(user=user)
+    token, created = Token.objects.get_or_create(user=user)
     login(request, user)
     return {"user": user.username, "token": token.key}
 
