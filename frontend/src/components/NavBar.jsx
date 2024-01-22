@@ -13,12 +13,12 @@ function NavBar() {
       className="bg-body-tertiary"
     >
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+        <Navbar.Brand as={Link} to={"/"}>A's Fitness</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to={"/"}>
-              Home
+            <Nav.Link as={Link} to={"/calendar/"}>
+              Workout Calendar
             </Nav.Link>
             <Nav.Link as={Link} to={"/users/"}>
               Log In / Sign Up
